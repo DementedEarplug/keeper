@@ -1,20 +1,25 @@
 import React from "react"
 
-function NewNote(){
+function NewNote(props){
     return <div className="new-note-container">
         <form>
-            <input 
+            <input
+            onChange={props.textInput} 
             className="new-note-title" 
             type="text" 
-            name="newNoteTitle" 
-            placeholder="Title" />
+            name="title" 
+            placeholder="Title"
+            value={props.title} />
 
-            <textarea 
+            <textarea
+            onChange={props.textInput} 
             className="new-note-content" 
-            name="newNoteContent" 
-            placeholder="Take a note..." 
+            name="content" 
+            placeholder="Take a note..."
+            value={props.content} 
             rows="4"></textarea>
-            <button>Add</button>
+
+            <button onClick={props.addNewNote} >Add</button>
         </form>
     </div>
 }

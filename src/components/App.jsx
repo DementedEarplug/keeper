@@ -1,23 +1,54 @@
-import React from 'react';
+import React, {useState} from 'react';
 import Header from './Header'
-import Note from './Note'
 import Footer from './Footer'
 import NewNote from './NewNote'
-
-// Data
-import notes from '../data/notes'
+import Notes from './Notes';
 
 function App() {
+  const [notes , setNotes] = useState([{title: "Hello", content: "Lool"}])
+  
+  const [newNote, setNewNote] = useState({
+    title: '',
+    content: ''
+  })
+  
+  function handleAdd(event) {
+    console.log(newNote)
+    setNotes((prevNotes)=>{
+      console.log(prevNotes)
+      return [...prevNotes, newNote]
+    })
+
+    setNewNote({
+      title: '',
+      content: ''
+    })
+    event.preventDefault()
+  }
+
+  function handleWriting(event){
+    const {name, value} = event.target
+    
+    setNewNote((prevValue)=>{
+      return {
+        ...prevValue,
+        [name]: value
+      }
+    }
+    
+    )
+
+  }
+  
   return (
     <div className="App">
       <Header />
-      <NewNote />
-      {notes.map((item)=>{
-        return <Note key={item.key}
-          title={item.title}
-          body={item.content}
-        />
-      })}
+      <NewNote
+      textInput={handleWriting} 
+      addNewNote={handleAdd}
+      title={newNote.title}
+      content={newNote.content} />
+      <Notes notes={notes} />
       <Footer />
     </div>
   );
