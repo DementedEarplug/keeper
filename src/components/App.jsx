@@ -13,9 +13,7 @@ function App() {
   })
   
   function handleAdd(event) {
-    console.log(newNote)
     setNotes((prevNotes)=>{
-      console.log(prevNotes)
       return [...prevNotes, newNote]
     })
 
@@ -34,11 +32,16 @@ function App() {
         ...prevValue,
         [name]: value
       }
-    }
-    
-    )
-
+    })
   }
+
+  function handleDelete(id){
+    setNotes(prevNotes=>{
+      return prevNotes.filter((item, index)=>{
+        return index !== id
+      })
+    })
+}
   
   return (
     <div className="App">
@@ -48,7 +51,8 @@ function App() {
       addNewNote={handleAdd}
       title={newNote.title}
       content={newNote.content} />
-      <Notes notes={notes} />
+      <Notes handleDelete={handleDelete}
+      notes={notes} />
       <Footer />
     </div>
   );
